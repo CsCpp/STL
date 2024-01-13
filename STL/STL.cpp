@@ -11,9 +11,9 @@ int main()
 	vector<int>myVector = {12,435,456,68,32,798,4332}; // Создаем вектор
 
 	// Выводим 
-	for (auto i = myVector.begin(); i != myVector.end(); i++)
+	for (auto &&i : myVector)
 	{
-		cout << *i << endl;
+		cout << i << endl;
 	}
 	
 	auto itErase = myVector.begin();			//Итератор на первое значение
@@ -25,9 +25,9 @@ int main()
 					// 
 	cout << "itErase = " << *itErase << endl;	
 
-	for (auto i = myVector.begin(); i != myVector.end(); i++)
+	for (auto&& i : myVector)
 	{
-		cout << *i << endl;
+		cout << i << endl;
 	}
 					//ЕСЛИ РАСКОМЕНТИТЬ ТО КРАШИТСЯ
 					// 
