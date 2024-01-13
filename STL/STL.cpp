@@ -19,11 +19,11 @@ int main()
 	auto itErase = myVector.begin();			//Итератор на первое значение
 	cout << "itErase = " << *itErase << endl;
 	cout << "+++++++ Erase 0-2 ++++++" << endl;
-	myVector.erase(itErase,itErase+2);			//Стираем по диапазону
+	itErase=myVector.erase(itErase,itErase+2);			//Стираем по диапазону
 				
 					//ЕСЛИ РАСКОМЕНТИТЬ ТО КРАШИТСЯ
 					// 
-	//cout << "itErase = " << *itErase << endl;	
+	cout << "itErase = " << *itErase << endl;	
 
 	for (auto i = myVector.begin(); i != myVector.end(); i++)
 	{
@@ -31,7 +31,7 @@ int main()
 	}
 					//ЕСЛИ РАСКОМЕНТИТЬ ТО КРАШИТСЯ
 					// 
-	//cout << "itErase = " << *itErase << endl;
+	cout << "itErase = " << *itErase << endl;
 	
 	return 0;
 }
