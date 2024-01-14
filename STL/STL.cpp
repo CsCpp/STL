@@ -1,50 +1,48 @@
 ﻿#include <iostream>
-#include <forward_list>
+#include <deque>
 using namespace std;
 
-//Forward_List
-
-//template<typename T>
-//void PrintList(const list<T> &lst)
-//{
-//	for (auto&& i : lst)
-//	{
-//		cout << i << endl;
-//	}
-//}
+//deque  двухсторонняя очередь // векторы в двухсвязном списке
 
 
 int main()
 {
 	setlocale(LC_ALL, "ru");
-	forward_list<int> myList = {4,52,64,86,54};
-	myList.push_front(32);
-	myList.push_front(87);
+	deque<int> myDeque = {4,52,64,86,54};
 	
-	//myList.pop_front();
-	
-	//myList.sort();
-	
-	forward_list <int>::iterator itList = myList.begin();
-	
-	itList++;
+	myDeque.pop_back();
+	myDeque.pop_front();
+	myDeque.push_front(5);
+	myDeque.push_back(3);
+	myDeque.assign(5, 43);				//позволяет заменить все элементы очереди определенным набором
 
-	cout <<"Итератор указывает на : " << *itList << endl;
-	cout <<endl<< "Вставили 1111 после итератора " << endl << endl;
-	myList.insert_after(itList, 1111);		//Вставить 1111 после итератора
 
-	for (auto&& var : myList)
+	for (auto &&i: myDeque)
 	{
-		cout << var << endl;
+		cout << i << endl;
+
 	}
 
-	cout << "Удаляем элемент после итератора " << *itList << endl;
-	itList=myList.erase_after(itList);
-	
-	for (auto&& var : myList)
-	{
-		cout << var << endl;
-	}
-	
+		/*
+		push_back(val) : добавляет значение val в конец очереди
+		push_front(val) : добавляет значение val в начало очереди
+		emplace_back(val) : добавляет значение val в конец очереди
+		emplace_front(val) : добавляет значение val в начало очереди
+		emplace(pos, val) : вставляет элемент val на позицию, на которую указывает
+				итератор pos.Возвращает итератор на добавленный элемент
+		insert(pos, val) : вставляет элемент val на позицию, на которую указывает итератор
+				pos, аналогично функции emplace.Возвращает итератор на добавленный элемент
+		insert(pos, n, val) : вставляет n элементов val начиная с позиции, на которую указывает
+				итератор pos.Возвращает итератор на первый добавленный элемент.Если n = 0, 
+				то возвращается итератор pos.
+		insert(pos, begin, end) : вставляет начиная с позиции, на которую указывает итератор
+				pos, элементы из другого контейнера из диапазона между итераторами begin и end.
+				Возвращает итератор на первый добавленный элемент.Если между итераторами begin 
+				и end нет элементов, то возвращается итератор pos.
+		insert(pos, values) : вставляет список значений values начиная с позиции, на которую 
+				указывает итератор pos.Возвращает итератор на первый добавленный элемент.Если values 
+				не содержит элементов, то возвращается итератор pos.
+		*/
+
 	return 0;
 }
