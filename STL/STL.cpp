@@ -1,48 +1,71 @@
 ﻿#include <iostream>
-#include <deque>
+#include <set>
 using namespace std;
 
-//deque  двухсторонняя очередь // векторы в двухсвязном списке
+//set      //Бинарное дерево
+//multiset
 
 
 int main()
 {
 	setlocale(LC_ALL, "ru");
-	deque<int> myDeque = {4,52,64,86,54};
-	
-	myDeque.pop_back();
-	myDeque.pop_front();
-	myDeque.push_front(5);
-	myDeque.push_back(3);
-	myDeque.assign(5, 43);				//позволяет заменить все элементы очереди определенным набором
+	multiset<int> mMs = {54,6356,8,75,54,65}; // мультисет может хранить дубли
+	mMs.insert(555);
+	mMs.insert(555);
+	mMs.insert(555);
+	mMs.insert(555);
+	mMs.insert(555);
+	mMs.insert(555);
 
+	auto it1 = mMs.lower_bound(8); // поиск первого элемента не меньше данного 
+	auto it2 = mMs.upper_bound(8); // поиск первого элемента большего данного 
+	auto it3 = mMs.equal_range(8); // вернет предыдущую пару lower_bound + upper_bound
 
-	for (auto &&i: myDeque)
+	for (auto&& it : mMs)
 	{
-		cout << i << endl;
-
+		cout << it << endl;
 	}
 
-		/*
-		push_back(val) : добавляет значение val в конец очереди
-		push_front(val) : добавляет значение val в начало очереди
-		emplace_back(val) : добавляет значение val в конец очереди
-		emplace_front(val) : добавляет значение val в начало очереди
-		emplace(pos, val) : вставляет элемент val на позицию, на которую указывает
-				итератор pos.Возвращает итератор на добавленный элемент
-		insert(pos, val) : вставляет элемент val на позицию, на которую указывает итератор
-				pos, аналогично функции emplace.Возвращает итератор на добавленный элемент
-		insert(pos, n, val) : вставляет n элементов val начиная с позиции, на которую указывает
-				итератор pos.Возвращает итератор на первый добавленный элемент.Если n = 0, 
-				то возвращается итератор pos.
-		insert(pos, begin, end) : вставляет начиная с позиции, на которую указывает итератор
-				pos, элементы из другого контейнера из диапазона между итераторами begin и end.
-				Возвращает итератор на первый добавленный элемент.Если между итераторами begin 
-				и end нет элементов, то возвращается итератор pos.
-		insert(pos, values) : вставляет список значений values начиная с позиции, на которую 
-				указывает итератор pos.Возвращает итератор на первый добавленный элемент.Если values 
-				не содержит элементов, то возвращается итератор pos.
-		*/
+	set<int> mySet;
+	for (int i = 0; i < 20; ++i)
+	{
+		mySet.insert(rand() % 100);
+	}
+	mySet.insert(10);
+	mySet.insert(32);
+	mySet.insert(1);
+	mySet.insert(46);
+	// удаляем числа:
+	//mySet.erase(1);
+	// можно посмотреть результат получилось ли удалить:
+	auto result= mySet.erase(1);
+	cout << "Результат удаления числа из дерева: " << result << endl;
+	// так же и для insert  -  только возвращается  итератор + булевый результат
+	auto res = mySet.insert(23);
+	cout << "Результат inserta : "<< res.second << endl;
+	
+
+	for (auto&& it : mySet)
+	{
+		cout << it << endl;
+	}
+
+	auto it = mySet.find(33); //find  ищет число 33 и возвращает итератор на него если такое есть
+
+	int val;
+	cout << "Введите число для поиска" << endl;
+	cin >> val;
+	cout << endl;
+	if (mySet.find(val) != mySet.end())
+	{
+		cout << "число " << val << " найдено" << endl;
+	}
+	else
+	{
+		cout << "число " << val << " отсутствует" << endl;
+	}
+
+
 
 	return 0;
 }
