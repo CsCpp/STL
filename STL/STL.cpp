@@ -1,65 +1,119 @@
 ﻿#include <iostream>
-#include<list>
-#include <queue>
+#include<algorithm>
+#include<vector>
+#include <string>
 using namespace std;
 
-//queue      //Очередь
-// адаптер для  контейнеров -  лист или дек
-//priority_queue // Очередь приоритетов -  -  vector или дек
-// 
-//				//queue      //Очередь
-//back	Возвращает ссылку на последний и наиболее недавно добавленный элемент в конец queue.
-//empty	Проверяет, является ли queue пустым.
-//front	Возвращает ссылку на первый элемент в начале queue.
-//pop	Удаляет элемент из начала queue.
-//push	Добавляет элемент в конец queue.
-//size	Возвращает количество элементов в контейнере queue.
+								//Алгоритмы
+								//
+								//Sort
+//std::sort() из заголовочного файла <algorithm>
+//Компаратор должен принимать два значения и возвращать значение типа bool
 
+//std::ranges::sort()
+//Начиная со стандарта C++20
+
+//Сортировка с проекцией
+//Функция std::ranges::sort поддерживает проекцию данных для функции компаратора.
+
+//бинарный предикат:
+bool MyPred(int a, int b)
+{
+	return a > b;
+}
+
+template<typename T>
+void printVc(T &vc) 
+{
+	for (auto&& e : vc)
+	{
+		cout << e << endl;
+	}
+}
+
+class Person 
+{public:
+	Person(string name="Name",double score=0)
+	{
+		this->Name = name;
+		this->Score = score;
+	}
+	bool operator()(const Person &p)  // предикат - возвращает булевое значение
+	{
+		return p.Score > 100;
+	}
+	string Name;
+	double Score;
+};
 
 int main()
 {
 	setlocale(LC_ALL, "ru");
-	queue<int> q;
-	auto a = q._Get_container();		// по дефолту deque
-	queue<int,list<int>> qQ;			// теперь работаем с List
+	vector<int> vc = { 21,95,23,74,52,61,41,10,80,12,30 };
+	printVc(vc);
+	
 
-	q.push(34);
-	q.push(21);
-	q.push(64);
-	q.push(37);
-	q.push(93);
-	cout << "front " << q.front()<< endl;
-	q.pop();
-	cout << "Pop + front " << q.front() << endl;
-	cout << "Back " << q.back() << endl;
-	cout << "while (!.empty()) "<< endl;
-	cout << "Количество элементов в очереде = " << q.size() << endl;
-	int i = 1;
-	while (!q.empty())
-	{	
-		cout << i <<" = " << q.front() << endl;
-		q.pop();
-		++i;
-	}
-	cout << "Количество элементов в очереде = " << q.size() << endl<<endl;
+	cout << "Вектор после cортировки без компоратора" << endl;
+	sort(vc.begin(), vc.end());
+	printVc(vc);
 
-	//					Очередь приоритетов
-	cout << "Очередь приоритетов" << endl;
-	priority_queue<int> pq;
-	pq.push(49);
-	pq.push(12);
-	pq.push(83);
-	pq.push(38);
-	pq.push(27);
-	cout << "Количество элементов в очереде = " << pq.size() << endl;
-	i = 1;
-	while (!pq.empty())
+	cout << "Вектор после cортировки c предикатом" << endl;
+	sort(vc.begin(), vc.end(),MyPred);
+	printVc(vc);
+
+	cout << "Вектор после cортировки c лямбда выражениеm" << endl; //ананимная функция
+	sort(vc.begin(), vc.end(), [](int a, int b) {return a < b; });
+	printVc(vc);
+
+	//сортировка массива
+	cout << "Массив" << endl;
+	const int SIZE = 7;
+	int arr[SIZE] = {52,14,30,82,17,92,31};
+	printVc(arr);
+	cout << "Массив после cортировки без компоратора" << endl;
+	sort(arr,arr+SIZE);
+	printVc(arr);
+
+	cout << "Массив после cортировки c бинарным ананимным придикатом" << endl; //ананимная функция
+	sort(arr, arr + SIZE, [](int a, int b) {return a > b; });
+	printVc(arr);
+
+	vector<Person> people
 	{
-		cout << i << " = " << pq.top() << endl;
-		pq.pop();
-		++i;
+		Person("Alina",200),
+		Person("Vasua",99),
+		Person("Petya",120),
+		Person("Dasha",18),
+		Person("Gena",162),
+		Person("Tanya",111),
+		Person()				// конструктор с параметрами по умолчанию
+	};
+	cout << "\t ИМЯ:\t БАЛЛЫ:" << endl;
+	for (auto& a : people)
+	{
+		cout << "\t" << a.Name << "\t" << a.Score << endl;
 	}
-	cout << "Количество элементов в очереде = " << pq.size() << endl;
+	//если простая сортировка то нужно перегрузить оператор сравнения
+	cout << "Сортируем по БАЛЛАМ" << endl;
+	sort(people.begin(), people.end(), [](const Person& p1,const Person& p2)
+		{
+			return p1.Score < p2.Score;
+		});
+
+	for (auto& a : people)
+	{
+		cout << "\t" << a.Name << "\t" << a.Score << endl;
+	}
+	cout << "Сортируем по Name" << endl;
+	sort(people.begin(), people.end(), [](const Person& p1, const Person& p2)
+		{
+			return p1.Name < p2.Name;
+		});
+
+	for (auto& a : people)
+	{
+		cout << "\t" << a.Name << "\t" << a.Score << endl;
+	}
 
 	return 0;
 }
