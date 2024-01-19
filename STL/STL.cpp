@@ -5,16 +5,8 @@
 using namespace std;
 
 								//Алгоритмы
-								//
-								//Sort
-//std::sort() из заголовочного файла <algorithm>
-//Компаратор должен принимать два значения и возвращать значение типа bool
-
-//std::ranges::sort()
-//Начиная со стандарта C++20
-
-//Сортировка с проекцией
-//Функция std::ranges::sort поддерживает проекцию данных для функции компаратора.
+								// Поиск
+								//std::find,  std::find_IF, std::find_if_not
 
 //бинарный предикат:
 bool MyPred(int a, int b)
@@ -53,31 +45,47 @@ int main()
 	printVc(vc);
 	
 
-	cout << "Вектор после cортировки без компоратора" << endl;
-	sort(vc.begin(), vc.end());
-	printVc(vc);
+	cout << "Поиск(find) " << endl;
+	auto it=find(vc.begin(), vc.end(),41);
+	if (it == vc.end()) { cout << " нету " << endl; }
+	else
+	{
+		cout << " есть " << endl;
+	}
 
-	cout << "Вектор после cортировки c предикатом" << endl;
-	sort(vc.begin(), vc.end(),MyPred);
-	printVc(vc);
+	cout << "Поиск(find_if) " << endl;
+	// для условия принимайет предикат
+	auto result = find_if(vc.begin(), vc.end(), [](int a) {
+		return a < 0;
+		});
 
-	cout << "Вектор после cортировки c лямбда выражениеm" << endl; //ананимная функция
-	sort(vc.begin(), vc.end(), [](int a, int b) {return a < b; });
-	printVc(vc);
+	if (result == vc.end()) { cout << " нету " << endl; }
+		else
+		{
+			cout << " есть " << endl;
+		}
+	cout << "Поиск(find_if_not) " << endl;
+	// для условия принимайет предикат
+	auto result2 = find_if_not(vc.begin(), vc.end(), [](int a) {
+		return a < 0;
+		});
+
+	if (result2 == vc.end()) { cout << " нету " << endl; }
+	else
+	{
+		cout << " есть " << endl;
+	} // поиск для вектора из int
+
 
 	//сортировка массива
-	cout << "Массив" << endl;
-	const int SIZE = 7;
-	int arr[SIZE] = {52,14,30,82,17,92,31};
-	printVc(arr);
-	cout << "Массив после cортировки без компоратора" << endl;
-	sort(arr,arr+SIZE);
-	printVc(arr);
-
-	cout << "Массив после cортировки c бинарным ананимным придикатом" << endl; //ананимная функция
-	sort(arr, arr + SIZE, [](int a, int b) {return a > b; });
-	printVc(arr);
-
+	//cout << "Массив" << endl;
+	//const int SIZE = 7;
+	//int arr[SIZE] = {52,14,30,82,17,92,31};
+	//printVc(arr);
+	//cout << "Массив после cортировки без компоратора" << endl;
+	//sort(arr,arr+SIZE);
+	//printVc(arr);
+	cout << "Поиск(find_if) для вектора состоящего из класса Person" << endl;
 	vector<Person> people
 	{
 		Person("Alina",200),
@@ -93,27 +101,17 @@ int main()
 	{
 		cout << "\t" << a.Name << "\t" << a.Score << endl;
 	}
-	//если простая сортировка то нужно перегрузить оператор сравнения
-	cout << "Сортируем по БАЛЛАМ" << endl;
-	sort(people.begin(), people.end(), [](const Person& p1,const Person& p2)
-		{
-			return p1.Score < p2.Score;
-		});
+	auto ptr2=find_if(people.begin(), people.end(), [](const Person& p)
+			{
+				return p.Name=="petya";
+			});
 
-	for (auto& a : people)
+	if (ptr2 == people.end()) { cout << " нету " << endl; }
+	else
 	{
-		cout << "\t" << a.Name << "\t" << a.Score << endl;
+		cout << " есть " << endl;
 	}
-	cout << "Сортируем по Name" << endl;
-	sort(people.begin(), people.end(), [](const Person& p1, const Person& p2)
-		{
-			return p1.Name < p2.Name;
-		});
 
-	for (auto& a : people)
-	{
-		cout << "\t" << a.Name << "\t" << a.Score << endl;
-	}
 
 	return 0;
 }
