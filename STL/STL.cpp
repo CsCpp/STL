@@ -6,7 +6,8 @@
 using namespace std;
 
 								//Алгоритмы
-								// наибольший элемент // max_element
+								// наименьший элемент // min_element
+								//minmax_element
 								
 
 class Person
@@ -40,14 +41,24 @@ int main()
 
 	vector<int> v = { 4,21,56,21,78,31,-54,29,-24,4,58,12,34 };
 	list<int> lst = {4,21,13,54,-1,68,10,93,15};
-	int arr[4] = { 21,34,8,5 };
+	const int size = 4;
+	int arr[size] = { 21,34,8,5 };
 	
-	auto itr=max_element(v.begin(), v.end());
+	auto itr=min_element(v.begin(), v.end());
 	cout << *itr << endl;
-	auto iitr = max_element(lst.begin(), lst.end());
+	auto iitr = min_element(lst.begin(), lst.end());
 	cout << *iitr << endl;
-	auto iiitr = max_element(arr, arr+4);
+	auto iiitr = min_element(arr, arr + size);
 	cout << *iiitr << endl;
+	
+	cout << "\t" << "min max element" << endl;
+
+	auto itr2 = minmax_element(v.begin(), v.end());
+	cout <<"min \t" << *itr2.first<<"\t max \t"<<*itr2.second << endl;
+	auto iitr2 = minmax_element(lst.begin(), lst.end());
+	cout << "min \t" << *iitr2.first << "\t max \t" << *iitr2.second << endl;
+	auto iiitr2 = minmax_element(arr, arr + size);
+	cout << "min \t" << *iiitr2.first << "\t max \t" << *iiitr2.second << endl;
 	//vector<Person> people
 	//{
 	//	Person("Alina",200),
