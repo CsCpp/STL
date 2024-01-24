@@ -5,42 +5,46 @@
 using namespace std;
 
 								//Алгоритмы
-								//  mismatch - возвращает итераторы  элемента несоответствия
-								// accumulate
+								// equal c предикатом
 								//сравнение массивов
-								
-//eqal equal() возвращает true, если обе последовательности одинаковы в диапазоне, ограниченном парой итераторов [first,last).
+	
+class Point {
+public:
+	Point(int x, int y) {
+		this->x = x;
+		this->y = y;
+	}
+	int x, y;
+};
 
 int main()
 {
 	setlocale(LC_ALL, "ru");
 	cout << "equal:" << endl;
-	vector <int>  arr  =	{1,21,56,21,4};
-	vector <int> arr2 =		{4,21,56,21,1};
-	bool result = equal(begin(arr), end(arr), begin(arr2), end(arr2));
-	cout << result << endl;
-	cout << "SORT:" << endl;
-	sort(begin(arr), end(arr));
-	sort(begin(arr2), end(arr2));
-	bool result2 = equal(begin(arr), end(arr), begin(arr2), end(arr2));
-	cout << result2 << endl;
-	arr = { 1,21,56,21,4 };
-	arr2 = { 1,21,568,21,4 };
-	auto result3 = mismatch(begin(arr), end(arr), begin(arr2), end(arr2));
-	if (result3.first == end(arr) && result3.second == end(arr2))
+	vector <Point>  arr  =	
 	{
-		cout << "+" << endl;
-	}
-	else
+		Point(3,5),
+		Point(5,2),
+		Point(9,7)
+	};
+	vector <Point>  arr2 =
 	{
-		cout << "-" << endl;
-		cout <<"second \t" << *result3.second << endl;
-		cout << "first \t" << *result3.first << endl;
-	}
+		Point(9,7),
+		Point(3,5),
+		Point(5,2)
+		
+	};
+	sort(begin(arr), end(arr), [](const Point& p1, const Point& p2) {
+		return p1.x > p2.x;
+		});
+	sort(begin(arr2), end(arr2), [](const Point& p1, const Point& p2) {
+		return p1.x > p2.x;
+		});
 
-		
-		
-		
-	
+	bool result = equal(begin(arr), end(arr), begin(arr2), end(arr2), [](const Point &p1,const Point &p2) {
+		return p1.x == p2.x && p1.y == p2.y;
+
+		});
+	cout << result << endl;
 	return 0;
 }
