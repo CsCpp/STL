@@ -5,8 +5,8 @@
 using namespace std;
 
 								//Алгоритмы
-								// equal c предикатом
-								//сравнение массивов
+								// for_each
+						
 	
 class Point {
 public:
@@ -20,31 +20,20 @@ public:
 int main()
 {
 	setlocale(LC_ALL, "ru");
-	cout << "equal:" << endl;
-	vector <Point>  arr  =	
-	{
-		Point(3,5),
-		Point(5,2),
-		Point(9,7)
-	};
-	vector <Point>  arr2 =
-	{
-		Point(9,7),
-		Point(3,5),
-		Point(5,2)
-		
-	};
-	sort(begin(arr), end(arr), [](const Point& p1, const Point& p2) {
-		return p1.x > p2.x;
-		});
-	sort(begin(arr2), end(arr2), [](const Point& p1, const Point& p2) {
-		return p1.x > p2.x;
+	int arr[] = {32,435,2,45,78,487,894,38};
+
+	std::cout << "\t Алгоритм for each" << endl;
+	for_each(begin(arr), end(arr), [](const int &b) {
+		std::cout << b << endl;
 		});
 
-	bool result = equal(begin(arr), end(arr), begin(arr2), end(arr2), [](const Point &p1,const Point &p2) {
-		return p1.x == p2.x && p1.y == p2.y;
+	std::cout << "\t Цикл for each" << endl;
 
-		});
-	cout << result << endl;
+	for (auto&& b : arr)
+	{
+		std::cout << b << endl;
+	}
+
+	
 	return 0;
 }
